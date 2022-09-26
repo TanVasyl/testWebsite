@@ -1,0 +1,81 @@
+.main_page,
+.modal_window
+{
+    position: absolute;
+    top: 10%;
+    left:40%;
+    background-color: wheat;
+    border-radius: 12px;
+    justify-content: center;
+    max-width: 100vw;
+    max-height: 100vh;
+    
+}
+.form_apps{
+    max-width: fit-content;
+    padding: 10px;
+    box-sizing: border-box;
+}
+.selection{
+    flex-direction: column;
+    align-items:flex-start;
+}
+.container{
+    display: flex;
+    flex-wrap: wrap;
+    flex-direction: column;
+}
+.container h3{
+    margin: 5px 0 20px 0;
+    
+}
+
+.img_select{
+    max-width: 200px;
+    max-height: 150px;
+    color:black;
+    margin: 15px;
+}
+p{
+    float: left;
+    margin: 15px 0px;
+}
+.variant{
+    display: flex;
+    flex-direction: column;
+
+}
+.checkbox{
+    display: flex;
+}
+.order_button{
+    border-radius: 12px;
+    width: 220px;
+    padding: 5px;
+    margin: 10px;
+    background-color: black;
+    color:wheat;
+    cursor: pointer;
+}
+.order_button:active{
+    position: relative;
+    top: 5px;
+    box-shadow: 2px 5px 5px rgb(67, 5, 5) ;
+}
+.image-decoration{
+    max-width: 250px;
+    max-height: 250px;
+}
+.content_part{
+    padding: 10px;
+    display: flex;
+    flex-direction: column;
+}
+
+@media screen and (max-width: 580px) {
+    .main_page{
+        flex-direction: column;
+    }
+   
+  
+}

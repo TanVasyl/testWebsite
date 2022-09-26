@@ -1,0 +1,51 @@
+
+.MealsHeader{
+    position: relative;
+    display: flex;
+    justify-content: center;
+    color: rgb(191 173 206);
+}
+.MealsHeader h1{
+    margin: 10px;
+    padding: 5px;
+}    
+.meals_list{
+    border: 5px solid black;
+    margin: 0px 60px;
+   
+}
+.MealsList{
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+}
+.list {
+    display: flex;
+    flex-direction: column;
+    max-width: 350px;
+    max-height: 450px;
+    margin: 15px;
+    padding: 10px;
+    border: 2px solid black;
+    border-radius: 5px;
+    background-color: #e3a65e;
+    align-items: inherit;
+    flex-wrap: wrap;
+    
+}
+.list div {
+    margin: 10px;
+}
+.list_img{
+    width: 250px;
+    height: 250px;
+}
+
+.btn_list{
+    padding: 5px;
+    border: 2px solid black;
+    border-radius: 7px;
+    cursor: pointer;
+    font-size: 18px;
+    background:rgb(191 173 206) ;
+}

@@ -1,0 +1,27 @@
+{
+  "compilerOptions": {
+    "outDir": "./dist/",
+    "target": "es5",
+    "module": "esnext",
+    "noImplicitAny": true,
+    "jsx": "react",
+    "allowJs": true,
+    "moduleResolution": "node",
+    "sourceMap": true,
+    "skipLibCheck": true,
+    
+  },
+  "angularCompilerOptions": {
+    "fullTemplateTypeCheck": true,
+    "strictInjectionParameters": true,
+    "allowSyntheticDefaultImports": true
+  },
+  "include": [
+    "src",
+    "declaration.d.ts",
+    "src/image"
+  ],
+  "exclude": [".typescript/node_modules/"]   ,
+  
+ }  
+ 

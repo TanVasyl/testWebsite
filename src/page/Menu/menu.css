@@ -1,0 +1,51 @@
+.menu {
+    position: relative;
+    /* transform: translateX(-130%); */
+    /* transition: all 0.2s; */
+}
+
+/* .menu.active {
+    transform: translateX(0);
+}
+
+
+.blur {
+    width: 100vw;
+    height: 100vh;
+    backdrop-filter: blur(2px);
+    position: absolute;
+
+} */
+.menu_content {
+    height: 100%;
+    background-color: black;
+    display: flex;
+    justify-content: center;
+    transition: all 0.4s;
+    color: azure;
+}
+.menu_header {
+    display: flex;
+    font-size: 26px;
+    color: blanchedalmond;
+}
+ul {
+    
+    list-style: none;
+    display: flex;
+}
+ul li {
+    text-decoration: none;
+    margin-right: 20px;
+    font-size: 18px;
+}
+ul li a {
+    color: blanchedalmond;
+    text-decoration: none;
+}
+ul li a :last-child{
+    position: absolute;
+    right: 0;
+}
+
+
