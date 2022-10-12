@@ -29,6 +29,8 @@
   "license": "ISC",
   "description": "",
   "dependencies": {
-    "react-hook-form": "^7.34.0"
+    "react-hook-form": "^7.34.0",
+    "react-redux": "^8.0.4",
+    "redux": "^4.2.0"
   }
 }

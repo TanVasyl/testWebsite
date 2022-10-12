@@ -31,9 +31,7 @@
     align-items: inherit;
     flex-wrap: wrap;
 }
-.cart_content div, img{
-    margin-bottom: 10px;
-}
+
 .cart_img{
     width: 250px;
     height: 250px;
@@ -49,6 +47,19 @@
     margin: 5px;
     background-color: rgb(191 173 206) ;
     border-radius: 4px;
+    max-width: 200px;
+    cursor: pointer;
+
+}
+.footer{
+    display: flex;
+}
+.btn_del{
+    border: 3px solid black;
+    border-radius: 10px;
+    font-size: 16px;
+    background-color: rgb(191 173 206);
+    cursor: pointer;
 
 }
 .cart_price{
@@ -56,13 +67,19 @@
     border: 3px solid black;
     border-radius: 10px;
     padding: 5px;
-    justify-content: flex-end;
     font-size: 16px;
-    align-self: flex-end;
     background-color: rgb(191 173 206);
+    max-width: 100px;
 }
 .cart_footer{
     padding: 15px;
     font-size: 22px;
     background-color:#e3a65e;
+}
+
+
+.content{
+    background-color: #e3a65e;
+    border: 2px solod white;
+    font-size: 2rem;
 }

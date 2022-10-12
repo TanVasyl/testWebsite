@@ -1,27 +1,22 @@
 import * as React from 'react';
-import { useState,useEffect } from 'react';
-import meals from './../../meals'
+import mealsList from './../../meals'
 import './style.css'
-import { IMealsProps } from '../App';
+import { useDispatch } from 'react-redux';
+import { cartTypeAction } from '../../reducers/mealsReducer/mealsReducer';
 
-export default function MealsList ({cart, setCart}:IMealsProps) {
-   
-    useEffect(() => {
-        localStorage.setItem('product', JSON.stringify(cart))
 
-    },[cart])
 
-    const product = React.useMemo(() => meals.map((prod)=> {
-       
-        const  addCart = (id:number) => {
-            if (cart.find((e:any)=>e.id === id)) {
-            setCart(cart)
-            } else {
-            setCart(cart.concat(prod))
-            }
-            
-        }
+
+export default function MealsList () {
     
+
+    const dispatch = useDispatch()
+
+    const add = (id:number ) => {
+        dispatch({type: cartTypeAction.ADD_CART, payload: mealsList[id]})   
+    }
+
+    const product = mealsList.map((prod)=> {
         return (
 
             <div key={prod.id.toString()} className="list">
@@ -32,12 +27,12 @@ export default function MealsList ({cart, setCart}:IMealsProps) {
 
                 <div className='list_price'>Цена: {prod.price} р.</div>
 
-                <button className='btn_list' onClick={() =>addCart(prod.id) }>Добавить</button>
+                <button className='btn_list' onClick={() =>add(prod.id) }>Добавить</button>
 
             </div>
             
         )
-    }), [cart] )
+    })
 
     return(
         <div className="meals_list">
@@ -50,7 +45,6 @@ export default function MealsList ({cart, setCart}:IMealsProps) {
             <div className="MealsList">
                 {product}
             </div>
-          
         </div>
     )
 }

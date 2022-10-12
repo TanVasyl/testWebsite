@@ -1,15 +1,23 @@
 .main_page,
 .modal_window
 {
-    position: absolute;
-    top: 10%;
-    left:40%;
+    display: flex;
     background-color: wheat;
     border-radius: 12px;
     justify-content: center;
     max-width: 100vw;
     max-height: 100vh;
+    align-items: center;
+    flex-direction: column;
     
+}
+.count_content{
+    display: flex;
+    flex-direction: column;
+}
+.cucumber_container,
+.tomato_container{
+    display: flex;
 }
 .form_apps{
     max-width: fit-content;
@@ -17,11 +25,12 @@
     box-sizing: border-box;
 }
 .selection{
+    display: flex;
     flex-direction: column;
     align-items:flex-start;
 }
 .container{
-    display: flex;
+    
     flex-wrap: wrap;
     flex-direction: column;
 }
