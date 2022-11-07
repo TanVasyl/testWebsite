@@ -10,16 +10,11 @@ export default function CartList () {
     const [sell, setSell] = useState(false)
     const [customCart,setCastomCart] = useState(JSON.parse( localStorage.getItem('custom')) || [])
    
-    
-    
-    
     const dispatch = useDispatch()
     const {meals} = useTypeSelector(state => state.meals)
-
     const get = (id:number) => {
         dispatch({type: cartTypeAction.GET_CART, payload: id})
     }
-
     const customItem = customCart.map((item:any) => {
         const {meat,chees, sauses,tomato,cucumber,onion} = item
 
@@ -36,16 +31,12 @@ export default function CartList () {
 
 
     })
-
-
-
     const cartSell = () =>  {
         localStorage.clear()
         setSell(true)
         alert("Ваш заказ оформлен")
         setCastomCart([])
     }
-
     const increase = (id:number) => {
         dispatch({type:cartTypeAction.Increase, payload: id})
     }
@@ -55,18 +46,13 @@ export default function CartList () {
 
     const cartMeals = meals.map((item) => {
         const {id,count,price,title,url} = item
-            
         if (sell === false) {
-
             return (
                 <div key={id} className="cart_content" >
-    
                     <img className='cart_img' src={url} />
-    
                     <div className="cart_title">
                         {title}
                     </div>
-    
                     <div className="cart_count">
                         Количество: 
                         <button className='btn_minus' onClick={()=> decrease(id)}>-</button>
@@ -77,41 +63,30 @@ export default function CartList () {
                     <div className="footer">
                         <button className='btn_del' onClick={() => get(item.id)}>Убрать из корзины</button>
                         <div className="cart_price">
-                    
                             Сумма: {price*count}
                         </div>
                     </div>
-                  
-    
                 </div>
-             
             )}
             else {
                 <div className="cart_content" >
-               
                 </div>
             }
-            
     })
-
-
     return(
         <div className="cart_list"  >
-
            <div className="cart_item">
              { cartMeals}
            </div>
            <div className="test">
              {customItem}
            </div>
-          
            <div className="cart_footer">
                 <span>Общая стоимость товаров: {sell === false ? meals.reduce((prev, curr)=> prev+(curr.count*curr.price), 0): 0}  </span>
                 <div className="btn__cart_add">
                     <button className='btn_add' onClick={cartSell} >Оформить заказ</button>
                 </div>
             </div>
-
         </div>
     )
 }

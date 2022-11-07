@@ -19,8 +19,8 @@
   "include": [
     "src",
     "declaration.d.ts",
-    "src/image"
-  ],
+    "src/image", 
+    "server" , "app.js"],
   "exclude": [".typescript/node_modules/"]   ,
   
  }  

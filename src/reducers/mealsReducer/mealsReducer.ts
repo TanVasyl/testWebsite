@@ -1,6 +1,5 @@
 import meals from '../../meals'
 
-
 export enum cartTypeAction {
     ADD_CART = "ADD_CART",
     GET_CART = "GET_CART",
@@ -35,10 +34,8 @@ const defaultMealsState:cartMeals = {
     meals: [],
 }
 
-
 export const mealsReducer = (state = defaultMealsState, action:cartAction ):cartMeals => {
    
-
     switch (action.type) {
         case cartTypeAction.ADD_CART: 
             return { 
@@ -56,19 +53,16 @@ export const mealsReducer = (state = defaultMealsState, action:cartAction ):cart
                         ...elem,
                         count:elem.count+1,
                         total: elem.price* elem.count,
-                    }
-                    
+                    }  
                 }
-                return elem
-            })
-}
+                    return elem
+                })
+            }
         case cartTypeAction.Decrease: 
             return{
                 meals: state.meals.map((elem:any) => {
                 if (elem.id === action.payload) {
-
                     const newCount = elem.count - 1 >= 1 ? elem.count - 1 : 1
-
                     return {
                         ...elem,
                         count: newCount,

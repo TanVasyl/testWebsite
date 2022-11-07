@@ -23,12 +23,15 @@
   "scripts": {
     "test": "test",
     "wp": "webpack --mode production",
-    "serv": "webpack-dev-server --mode=development --open"
+    "serv": "webpack-dev-server --mode=development --open",
+    "node": "node ./server/app.js"
   },
   "author": "basyl",
   "license": "ISC",
   "description": "",
   "dependencies": {
+    "cors": "^2.8.5",
+    "express": "^4.18.2",
     "react-hook-form": "^7.34.0",
     "react-redux": "^8.0.4",
     "redux": "^4.2.0"

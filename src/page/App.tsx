@@ -5,9 +5,6 @@ import Menu from './Menu/menu'
 import meals from '../meals'
 import ingredients from '../ingredients';
 
-
-
-
 export interface IMenuProps{
     items: any
   }
@@ -23,14 +20,7 @@ export interface IMealsProps{
 export interface ICustomProps{
     custom: typeof ingredients ,
     setCustom?: React.SetStateAction<any>
-
 }
-
-
-
-
-
-
 
 export default function  App() {
 
@@ -40,7 +30,6 @@ export default function  App() {
         {value: 'Основное меню', href:'/', id: 2},
         {value: 'Корзина', href:'/cart', id: 3},
     ]
-
     return(
         <div className='app'>
         

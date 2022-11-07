@@ -5,15 +5,12 @@ import './registr.css'
 import { IRegistrProps } from '../App';
 import {SubmitHandler, useForm} from 'react-hook-form'
 
-
 type FormInputs = {
     yourName: string;
     password: string;
   };
 
 export default function RegistrationUser({registr,setRegistr}:IRegistrProps) {
-
-
     const {
         register,
         formState: {
@@ -24,15 +21,11 @@ export default function RegistrationUser({registr,setRegistr}:IRegistrProps) {
     } = useForm<FormInputs>({
         mode: 'onChange'
     })
-
-
-
     const onSubmit:SubmitHandler<FormInputs> = (data:any) => {
          console.log("Вы зарегистрировались,", "Ваш логин :" ,data.yourName,"Ваш пароль :", data.password);
          alert("Вы зарегистрировались");
          reset()
     }
-
     return(
         <div className={registr ?"form_registr active":"form_register"} >
             <div className={registr ?"form_content active":"form_content"}>
@@ -49,8 +42,6 @@ export default function RegistrationUser({registr,setRegistr}:IRegistrProps) {
                             }
                         })}
                         />
-            
-
                         <div className='error'>
                             {errors?.yourName && <p style={{color:'blue'}}>{errors?.yourName?.message || 'Допустимы только буквы'}</p>}
                         </div>
@@ -66,16 +57,12 @@ export default function RegistrationUser({registr,setRegistr}:IRegistrProps) {
                             },
                         })} type='password'
                         />
-
                         <div className='error'>
                             {errors?.password && <p style={{color:'blue'}}>{errors?.password?.message || 'Error' }</p>}
                         </div>
                     </div>
-                
-
                 <button className='submit_button' type='submit'>Зарегистрироваться</button>
-                    </form>
-                    
+                    </form> 
             </div>
         </div>
     )
