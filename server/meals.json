@@ -1,7 +1,7 @@
 [{
     "id": "0",
     "title": "Первый",
-    "url": "burger_1.jpg",
+    "url": "http://localhost:5000/burger_1.jpg",
     "price": "200",
     "count":"1",
     "total": "200"
@@ -9,7 +9,7 @@
 {
     "id": "1",
     "title": "Второй",
-    "url": "burger_2.jpg",
+    "url": "http://localhost:5000/burger_2.jpg",
     "price": "300",
     "count":"1",
     "total": "300"
@@ -17,7 +17,7 @@
 {
     "id": "2",
     "title": "Третий",
-    "url": "burger_3.jpg",
+    "url": "http://localhost:5000/burger_3.jpg",
     "price": "400",
     "count":"1",
     "total": "400"
@@ -25,7 +25,7 @@
 {
     "id": "3",
     "title": "Четвертый",
-    "url": "burger_1.jpg",
+    "url": "http://localhost:5000/burger_1.jpg",
     "price": "200",
     "count":"1",
     "total": "200"

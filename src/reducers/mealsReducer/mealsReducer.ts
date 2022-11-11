@@ -1,5 +1,6 @@
 import meals from '../../meals'
 
+
 export enum cartTypeAction {
     ADD_CART = "ADD_CART",
     GET_CART = "GET_CART",
@@ -29,12 +30,11 @@ type cartAction = getCartAction | addCartAction | IncreaseAction | DecreaseActio
 interface cartMeals {
     meals: typeof meals
 }
-
 const defaultMealsState:cartMeals = {
     meals: [],
 }
 
-export const mealsReducer = (state = defaultMealsState, action:cartAction ):cartMeals => {
+export const mealsReducer = (state = defaultMealsState, action:cartAction ) => {
    
     switch (action.type) {
         case cartTypeAction.ADD_CART: 

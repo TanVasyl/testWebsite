@@ -6,16 +6,17 @@ import { cartTypeAction } from '../../reducers/mealsReducer/mealsReducer';
 
 export default function MealsList () {
 
-    const [meals, setMeals] = React.useState([])
+    const [meals, setMeals] = React.useState<typeof mealsList>([])
 
 React.useEffect(() => {
-    fetch('http://localhost:5000/')
+    fetch('http://localhost:5000/' ,  {
+        method:'GET'
+    })
     .then((response) => {
         return response.json();
     })
     .then((data) => {
-         setMeals(data)
-        })
+         setMeals(data)})
     .catch((error) => {
         console.log(error)
     })
@@ -27,7 +28,10 @@ React.useEffect(() => {
     const add = (id:number ) => {
         dispatch({type: cartTypeAction.ADD_CART, payload: mealsList[id]})   
     }
- 
+    function showMeals():any {
+        console.log(meals);
+    }
+    showMeals()
     return(
         <div className="meals_list">
             <div className="MealsHeader">
