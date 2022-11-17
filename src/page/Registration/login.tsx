@@ -2,38 +2,50 @@ import * as  React from "react";
 import { useForm } from "react-hook-form";
 import { FormInputs } from "./registr";
 
-const resUser = {
-    name:'',
-    password:''
-}
-const loginUser = (name:string, password:string) => {
-    fetch('http://localhost:5000/auth/' ,  {
-        method:'POST',
-        headers:{
-            'content-type':'application/json'
-        },
-        body: JSON.stringify({
-            user: name,
-            password: password
-        })
-    })
-    .then((response) => {
-        return response.json();
-    })
-    .then((data) => {
-        const resUser = {
-            name: data.name,
-            password: data.password
-        }
-        return console.log(data), console.log(data.name + '' + data.passwod);
-    })
-    .catch((error) => {
-        console.log(error)
-    })
-}
 
+interface IPerson {
+    id:number,
+    name:string,
+    message:string
+}
 
 function Login() {
+    const [person, setPerson] = React.useState<IPerson>({
+        id:null,
+        name: '',
+        message: ''
+    })
+
+  
+    const loginUser = (name:string, password:string) => {
+        fetch('http://localhost:5000/auth/' ,  {
+            method:'POST',
+            headers:{
+                'content-type':'application/json'
+            },
+            body: JSON.stringify({
+                user: name,
+                password: password
+            })
+        })
+        .then((response) => {
+            return response.json();
+        })
+        .then((data) => {
+         setPerson({
+            id: data.id,
+            name: data.name,
+            message: data.message
+         })
+          
+         
+            return console.log(data);
+        })
+        .catch((error) => {
+            console.log(error)
+        })
+    }
+
   const {
     register,
     handleSubmit,
@@ -45,6 +57,7 @@ function Login() {
     loginUser(data.yourName, data.password)
     reset()
   }
+
 
   return (
     <>
@@ -66,6 +79,15 @@ function Login() {
                     {errors?.yourName && <p style={{color:'blue'}}>{errors?.yourName?.message || 'Допустимы только буквы'}</p>}
                 </div>
             </div>
+           <div className="res" style = {{
+                background:'white',
+                border: '1px solid red'
+           }}>  
+                <div>{person.name}</div>
+                <div>{person.message}</div>
+            </div>
+          
+         
             <div className="password">
             <label>Пароль : </label>
                 <input className='input_password'

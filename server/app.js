@@ -5,13 +5,11 @@ const app = express();
 const path = require('path');
 const bcrypt = require('bcryptjs');
 
-
 const meals = require('./meals.json')
 const user = require('./user.json')
 const jsonBody = express.json()
 const userDBPath = __dirname + '/user.json'
 const salt = bcrypt.genSaltSync(7);
-
 
 app.use(jsonBody)
 app.use('/',express.static(path.join(__dirname + '/Image')));
@@ -24,16 +22,21 @@ app.get('/', cors(), function (req, res) {
     res.json(meals)
   })
 app.post('/auth', cors(), async function (req, res) {
-    console.log(req.body.user);
-    const person = await user.find((elem) => elem.name === req.body.user )
-    if (!person) {
-        res.status(400).send({message:'password or login not valid'})
-    }
-    const validPassword = bcrypt.compareSync(req.body.password, person.password)
-    if(!validPassword) {
-        res.status(404).send({message:'password or login not valid'})
-    }
-    res.send({message:'ok'})
+    const person = user.find((elem) =>{
+        if (elem.name === req.body.user){
+            return elem.password
+        }})
+    const validPassword = await bcrypt.compareSync(req.body.password, person.password)
+        if(validPassword === false) {
+            res.status(404).send({
+                message:'password or login not valid'})
+        } else{
+        res.status(200).send({
+            message:'password and login valid',
+            id: person.id,
+            name: person.name,
+            })
+        }
 })
   
 app.post('/registr', cors(), async function(req, res) {

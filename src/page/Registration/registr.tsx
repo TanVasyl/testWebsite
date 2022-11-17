@@ -34,7 +34,7 @@ const createUser = (name:string, password:string) => {
     })
 }
 
-export default function RegistrationUser({registr,setRegistr}:IRegistrProps) {
+export default function RegistrationUser() {
     const {
         register,
         formState: {
@@ -53,9 +53,9 @@ export default function RegistrationUser({registr,setRegistr}:IRegistrProps) {
     }
    
     return(
-    <div className={registr ?"form_registr active":"form_register"} >
+    <div className={"form_registr active"} >
     <Login></Login>
-    <div className={registr ?"form_content active":"form_content"}>
+    <div className={"form_content active"}>
         <form className='form' onSubmit={handleSubmit(onSubmit)}>
             <div className='login'>
             <label>Логин : </label>

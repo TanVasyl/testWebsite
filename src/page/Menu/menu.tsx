@@ -11,7 +11,7 @@ import { IMenuProps } from '../App';
 
 export default function Menu({items}:IMenuProps) {
 
-    const [registrActiv,setRegistrActiv] = useState(false) 
+
         
     return (
         <div className= 'menu'>
@@ -27,7 +27,7 @@ export default function Menu({items}:IMenuProps) {
             <Routes>
                 <Route path='/main' element={ <Main/> }/>
                 <Route path='/' element={ <MealsList/> }/>
-                <Route path='/registr' element={ <RegistrationUser registr={registrActiv} setRegistr={setRegistrActiv} /> }/>
+                <Route path='/registr' element={ <RegistrationUser/> }/>
                 <Route path='/cart' element={ <CartList/> } />
                 <Route path='*' element={ <MealsList /> } />
             </Routes>
