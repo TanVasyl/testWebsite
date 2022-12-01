@@ -11,8 +11,7 @@ export type FormInputs = {
     password: string;
   };
 
-
-const createUser = (name:string, password:string) => {
+const createUser = (name:string, password:string) => { 
     fetch('http://localhost:5000/registr/' ,  {
         method:'POST',
         headers:{
@@ -93,5 +92,4 @@ export default function RegistrationUser() {
     </div>
     </div>
     )
-
 }

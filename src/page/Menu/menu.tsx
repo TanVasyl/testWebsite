@@ -8,11 +8,12 @@ import Main from '../Main/custom'
 import MealsList from '../meals-list/meals-list';
 import CartList from '../Cart/cart';
 import { IMenuProps } from '../App';
+import { useTypeSelector } from '../../hooks/useSelector';
+import { useDispatch } from 'react-redux';
+import { localStateUser } from "../../reducers/slice/authUser";
 
 export default function Menu({items}:IMenuProps) {
-
-
-        
+    const {user, isAuth} = useTypeSelector((state) => state.authUser)
     return (
         <div className= 'menu'>
             <div className="menu_content" >
@@ -23,6 +24,12 @@ export default function Menu({items}:IMenuProps) {
                         </li>
                     )}
                 </ul>
+                {<div>
+                <span style={{
+                    'background': 'white',
+                    'color':'red'
+                }}>{user.name}</span>
+                </div>}
             </div>
             <Routes>
                 <Route path='/main' element={ <Main/> }/>
@@ -31,6 +38,8 @@ export default function Menu({items}:IMenuProps) {
                 <Route path='/cart' element={ <CartList/> } />
                 <Route path='*' element={ <MealsList /> } />
             </Routes>
+
+           
         </div>
     )
 }

@@ -1,50 +1,36 @@
 import * as  React from "react";
 import { useForm } from "react-hook-form";
 import { FormInputs } from "./registr";
-
-
-interface IPerson {
-    id:number,
-    name:string,
-    message:string
-}
+import { useDispatch, } from 'react-redux';
+import { responseUser } from "../../reducers/slice/authUser";
 
 function Login() {
-    const [person, setPerson] = React.useState<IPerson>({
-        id:null,
-        name: '',
-        message: ''
-    })
 
-  
-    const loginUser = (name:string, password:string) => {
-        fetch('http://localhost:5000/auth/' ,  {
-            method:'POST',
-            headers:{
-                'content-type':'application/json'
-            },
-            body: JSON.stringify({
-                user: name,
-                password: password
-            })
-        })
-        .then((response) => {
-            return response.json();
-        })
-        .then((data) => {
-         setPerson({
-            id: data.id,
-            name: data.name,
-            message: data.message
-         })
-          
-         
-            return console.log(data);
-        })
-        .catch((error) => {
-            console.log(error)
-        })
-    }
+  const dispatch = useDispatch()
+  const loginUser = (name:string, password:string) => {
+    React.useEffect(() => {
+      fetch('http://localhost:5000/auth/' ,  {
+          method:'POST',
+          headers:{
+              'content-type':'application/json'
+          },
+          body: JSON.stringify({
+              user: name,
+              password: password
+          })
+      })
+      .then((response) => {
+          return response.json();
+      })
+      .then((data) => {
+          console.log(data); 
+        dispatch(responseUser(data))
+      })
+      .catch((error) => {
+          console.log(error)
+      })
+    },[])  
+  }
 
   const {
     register,
@@ -57,8 +43,6 @@ function Login() {
     loginUser(data.yourName, data.password)
     reset()
   }
-
-
   return (
     <>
       <p className="title">Login Form</p>
@@ -83,11 +67,7 @@ function Login() {
                 background:'white',
                 border: '1px solid red'
            }}>  
-                <div>{person.name}</div>
-                <div>{person.message}</div>
-            </div>
-          
-         
+            </div>    
             <div className="password">
             <label>Пароль : </label>
                 <input className='input_password'

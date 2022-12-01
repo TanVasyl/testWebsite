@@ -2,17 +2,18 @@ import * as React from 'react';
 import { useState, useEffect} from 'react';
 import './style.css'
 import { useTypeSelector } from '../../hooks/useSelector';
-import { useDispatch } from 'react-redux';
-import { getCart,decrease,increase } from '../../reducers/slice/cartList';
-
+import { getCart,decrease,increase, addCart, fetchCartItems } from '../../reducers/slice/cartList';
+import { useAppDispatch } from '../../reducers/store';
 
 export default function CartList () {
     const [sell, setSell] = useState(false)
     const [customCart,setCastomCart] = useState(JSON.parse( localStorage.getItem('custom')) || [])
-   
-    const dispatch = useDispatch()
+    const dispatch = useAppDispatch()
     const cart = useTypeSelector(state => state.cartItem.cart)
-
+    React.useEffect(() => {
+        dispatch(fetchCartItems())
+    }, [])
+    
     const get = (id:number) => {
         dispatch(getCart(id))
     }
@@ -28,6 +29,12 @@ export default function CartList () {
     const decreaseCount = (id:number) => {
         dispatch(decrease(id))
     } 
+    const totalPrice = cart.reduce((prev, curr)=> prev+(curr.count*curr.price), 0)
+    console.log(cart);
+    
+    if(!cart){
+        return <>{`Пустая корзина`}</>
+    }
     return(
         <div className="cart_list"  >
             <div className="cart_item">
@@ -75,7 +82,7 @@ export default function CartList () {
             })}
            </div>
            <div className="cart_footer">
-                <span>Общая стоимость товаров: {sell === false ? cart.reduce((prev, curr)=> prev+(curr.count*curr.price), 0): 0}  </span>
+                <span>Общая стоимость товаров: {sell === false ? totalPrice: 0}  </span>
                 <div className="btn__cart_add">
                     <button className='btn_add' onClick={cartSell} >Оформить заказ</button>
                 </div>

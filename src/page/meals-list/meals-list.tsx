@@ -1,30 +1,30 @@
 import * as React from 'react';
 import './style.css'
-import { useDispatch, } from 'react-redux';
 import { useTypeSelector } from '../../hooks/useSelector';
-import { responseMeals } from '../../reducers/slice/mealsList';
-import { addCart } from '../../reducers/slice/cartList';
+import { fetchMealsItems } from '../../reducers/slice/mealsList';
+import { useAppDispatch } from '../../reducers/store';
+import axios from 'axios';
+import { MealsItem } from '../../reducers/slice/mealsList';
 
-export default function MealsList () {
-    const dispatch = useDispatch()
+const MealsList: React.FC =  () =>  {
+    const dispatch = useAppDispatch()
     const mealsName = useTypeSelector((state) => state.mealsList.meals)
+    React.useEffect(() => {
+        dispatch(fetchMealsItems())
+    },[])
 
-React.useEffect(() => {
-    fetch('http://localhost:5000/' ,  {
-        method:'GET'
+const addButton = async (prod:MealsItem) => {
+    const {id,count,price,title,url} = prod
+    await axios.post('http://localhost:5000/cart',{
+            token: sessionStorage.getItem('tokenSession'),
+            meals: {
+                id:id,
+                count:count,
+                price:price,
+                title:title,
+                url:url
+            }
     })
-    .then((response) => {
-        return response.json();
-    })
-    .then((data) => {
-        dispatch(responseMeals(data))
-    })
-    .catch((error) => {
-        console.log(error)
-    })
-},[])
-const add = (id:number ) => {
-    dispatch(addCart(mealsName[id]));
 }
     return(
     <div className="meals_list">
@@ -38,7 +38,7 @@ const add = (id:number ) => {
                     <img className='list_img' src={prod.url} alt='Бургер'  />
                     <div className='list_title'>{prod.title}</div>
                     <div className='list_price'>Цена: {prod.price} р.</div>
-                    <button className='btn_list' onClick={() =>add(prod.id) }>Добавить</button>
+                    <button className='btn_list' onClick={() =>addButton(prod) }>Добавить</button>
                 </div>
                 )
             })}
@@ -46,3 +46,5 @@ const add = (id:number ) => {
     </div>
     )
 }
+
+export default MealsList ;

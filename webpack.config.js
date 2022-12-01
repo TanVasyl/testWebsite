@@ -11,7 +11,8 @@ const config = {
     
     output: {
         path: path.resolve(__dirname, 'dist'),
-        filename: '[name].bundle.js'
+        filename: '[name].bundle.js',
+        publicPath: '/'
     },
     
     resolve: {
@@ -19,7 +20,9 @@ const config = {
     },
 
     devServer: {
-        port: 3000
+        port: 3000,
+        historyApiFallback: true
+
     },
     devtool: 'inline-source-map',
     
