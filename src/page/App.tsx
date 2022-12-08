@@ -2,18 +2,18 @@ import * as React from 'react';
 import { Argument} from 'webpack';
 import './app.css'
 import Menu from './Menu/menu'
-import meals from '../meals'
 import ingredients from '../ingredients';
+import { MealsItem } from '../reducers/slice/mealsList';
 
 export interface IMenuProps{
     items: any
-  }
+}
 export interface IRegistrProps{
     registr: boolean,
     setRegistr: React.SetStateAction<any>
 }
 export interface IMealsProps{
-    cart: typeof meals ,
+    cart:MealsItem ,
     setCart?: React.SetStateAction<any>
 
 }

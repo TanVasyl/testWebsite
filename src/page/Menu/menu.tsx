@@ -1,6 +1,4 @@
 import * as React from 'react';
-import { useState } from 'react';
-import { Argument} from 'webpack';
 import './menu.css'
 import { Routes, Route, Link } from 'react-router-dom'
 import RegistrationUser from '../Registration/registr'
@@ -9,8 +7,6 @@ import MealsList from '../meals-list/meals-list';
 import CartList from '../Cart/cart';
 import { IMenuProps } from '../App';
 import { useTypeSelector } from '../../hooks/useSelector';
-import { useDispatch } from 'react-redux';
-import { localStateUser } from "../../reducers/slice/authUser";
 
 export default function Menu({items}:IMenuProps) {
     const {user, isAuth} = useTypeSelector((state) => state.authUser)
@@ -35,7 +31,7 @@ export default function Menu({items}:IMenuProps) {
                 <Route path='/main' element={ <Main/> }/>
                 <Route path='/' element={ <MealsList/> }/>
                 <Route path='/registr' element={ <RegistrationUser/> }/>
-                <Route path='/cart' element={ <CartList/> } />
+                <Route path='/cart'  element={ <CartList/> } />
                 <Route path='*' element={ <MealsList /> } />
             </Routes>
 

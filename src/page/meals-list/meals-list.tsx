@@ -15,7 +15,7 @@ const MealsList: React.FC =  () =>  {
 
 const addButton = async (prod:MealsItem) => {
     const {id,count,price,title,url} = prod
-    await axios.post('http://localhost:5000/cart',{
+    await axios.post('http://localhost:5000/post',{
             token: sessionStorage.getItem('tokenSession'),
             meals: {
                 id:id,

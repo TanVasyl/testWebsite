@@ -67,23 +67,21 @@ app.post('/registr', cors(), async function(req, res) {
     }
 })
 
-app.post('/cart', cors(), function(req, res) {
+app.post('/post', cors(), function(req, res) {
     const { meals, token } = req.body
-    console.log(meals);
     if (token === tokenSession) {
         if(notAuthCart.find((elem) => elem.id === meals.id)){
             return notAuthCart,
             res.status(200).send({message:`Товар уже добавлен`})
         } else {
             return notAuthCart.push(meals),
-            console.log(notAuthCart + ' cart'),
             res.status(200).send({message:`Товар добавлен в корзину`})
         }
     } else {
         return res.status(400).send({message: `bad request`})
     }
 })
-app.post('/cart/items', cors(), function(req, res) {
+app.post('/cart', cors(), function(req, res) {
     const { token } = req.body
     if(token.toString() === tokenSession.toString()) { 
         res.status(200).send(notAuthCart)
@@ -91,4 +89,43 @@ app.post('/cart/items', cors(), function(req, res) {
         res.status(404).send({message: 'not found'})
     }
 })
+app.post('/cart/items', cors(), function(req,res){
+    const {meals} = req.body
+    const findElem = notAuthCart.findIndex((elem) => elem.id === meals.id)
+    if(findElem>=0){
+        notAuthCart.splice(findElem,1)
+        res.send(notAuthCart)
+    }else {
+        res.status(404).send({message:'not found'})
+    }
+})
+app.put('/cart/items/cp', cors(), function(req, res){
+    const {id} = req.body
+    const findItem = notAuthCart.find((elem)=> elem.id === id)
+    const findInd = notAuthCart.findIndex((elem) => elem.id === id)
+    if(findInd>=0){
+        findItem.count =+findItem.count + 1
+        notAuthCart.splice(findInd, 1, findItem)
+        res.status(200).send(notAuthCart)
+    } else {
+        res.status(400).send({message:'bad request'})
+    }
+})
+app.put('/cart/items/cm', cors(), function(req, res){
+    const {id} = req.body
+    const findItem = notAuthCart.find((elem)=> elem.id === id)
+    const findInd = notAuthCart.findIndex((elem) => elem.id === id)
+    if(findInd>=0){
+        if(+findItem.count > 1){
+        findItem.count = +findItem.count - 1
+        notAuthCart.splice(findInd, 1, findItem)
+    }else {
+        notAuthCart.splice(findInd, 1)
+    }
+        res.status(200).send(notAuthCart)
+    } else {
+        res.status(400).send({message:'bad request'})
+    }
+})
+
 app.listen(5000)
