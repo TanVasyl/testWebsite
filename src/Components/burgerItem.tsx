@@ -1,17 +1,11 @@
-import * as React from 'react';
-import './style.css'
-import { useTypeSelector } from '../../hooks/useSelector';
-import { fetchMealsItems } from '../../reducers/slice/mealsList';
-import { useAppDispatch } from '../../reducers/store';
+import * as React from "react"; 
 import axios from 'axios';
-import { MealsItem } from '../../reducers/slice/mealsList';
+import { useTypeSelector } from '../hooks/useSelector';
+import { MealsItem } from '..//types';
 
-const MealsList: React.FC =  () =>  {
-    const dispatch = useAppDispatch()
-    const mealsName = useTypeSelector((state) => state.mealsList.meals)
-    React.useEffect(() => {
-        dispatch(fetchMealsItems())
-    },[])
+
+const BurgerItem: React.FC = () => {
+const mealsName = useTypeSelector((state) => state.mealsList.meals)
 
 const addButton = async (prod:MealsItem) => {
     const {id,count,price,title,url} = prod
@@ -46,5 +40,4 @@ const addButton = async (prod:MealsItem) => {
     </div>
     )
 }
-
-export default MealsList ;
+export default BurgerItem

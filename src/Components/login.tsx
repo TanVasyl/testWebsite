@@ -1,36 +1,33 @@
 import * as  React from "react";
 import { useForm } from "react-hook-form";
-import { FormInputs } from "./registr";
 import { useDispatch, } from 'react-redux';
-import { responseUser } from "../../reducers/slice/authUser";
+import { responseUser } from "../reducers/slice/authUserSlice";
+import { FormInputs} from '../types'
 
-function Login() {
-
-  const dispatch = useDispatch()
-  const loginUser = (name:string, password:string) => {
-    React.useEffect(() => {
-      fetch('http://localhost:5000/auth/' ,  {
-          method:'POST',
-          headers:{
-              'content-type':'application/json'
-          },
-          body: JSON.stringify({
-              user: name,
-              password: password
-          })
-      })
-      .then((response) => {
-          return response.json();
-      })
-      .then((data) => {
-          console.log(data); 
-        dispatch(responseUser(data))
-      })
-      .catch((error) => {
-          console.log(error)
-      })
-    },[])  
-  }
+const Login:React.FC = () => {
+    const dispatch = useDispatch()
+    const loginUser = (name:string, password:string) => {
+        fetch('http://localhost:5000/auth/' ,  {
+            method:'POST',
+            headers:{
+                'content-type':'application/json'
+            },
+            body: JSON.stringify({
+                user: name,
+                password: password
+            })
+        })
+        .then((response) => {
+            return response.json();
+        })
+        .then((data) => {
+            console.log(data); 
+            dispatch(responseUser(data))
+        })
+        .catch((error) => {
+            console.log(error)
+        }) 
+    }
 
   const {
     register,

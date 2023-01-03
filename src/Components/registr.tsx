@@ -1,15 +1,8 @@
 import * as React from 'react';
-import { Argument} from 'webpack';
-import { useState, useEffect, useCallback } from 'react';
-import './registr.css'
-import { IRegistrProps } from '../App';
 import {SubmitHandler,  useForm} from 'react-hook-form'
+import { FormInputs} from '../types'
 import Login from './login';
 
-export type FormInputs = {
-    yourName: string;
-    password: string;
-  };
 
 const createUser = (name:string, password:string) => { 
     fetch('http://localhost:5000/registr/' ,  {
@@ -33,7 +26,7 @@ const createUser = (name:string, password:string) => {
     })
 }
 
-export default function RegistrationUser() {
+const RegistrationUser:React.FC = () =>{
     const {
         register,
         formState: {
@@ -44,7 +37,7 @@ export default function RegistrationUser() {
     } = useForm<FormInputs>({
         mode: 'onChange'
     })
-    const onSubmit:SubmitHandler<FormInputs> = (data:any) => {
+    const onSubmit:SubmitHandler<FormInputs> = (data) => {
          console.log("Вы зарегистрировались,", "Ваш логин :" ,data.yourName,"Ваш пароль :", data.password);
          createUser(data.yourName, data.password)
          alert("Вы зарегистрировались");
@@ -53,7 +46,6 @@ export default function RegistrationUser() {
    
     return(
     <div className={"form_registr active"} >
-    <Login></Login>
     <div className={"form_content active"}>
         <form className='form' onSubmit={handleSubmit(onSubmit)}>
             <div className='login'>
@@ -93,3 +85,4 @@ export default function RegistrationUser() {
     </div>
     )
 }
+export default RegistrationUser;

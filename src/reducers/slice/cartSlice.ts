@@ -1,7 +1,6 @@
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
-import type { PayloadAction } from '@reduxjs/toolkit';
 import axios from 'axios';
-import { MealsItem } from './mealsList';
+import { MealsItem,CartItem } from '../../types';
 
 export const fetchCartItems = createAsyncThunk<MealsItem>('cart/fetchCartItems', async () => {
     const { data } = await axios.post('http://localhost:5000/cart/', {
@@ -9,30 +8,26 @@ export const fetchCartItems = createAsyncThunk<MealsItem>('cart/fetchCartItems',
     })     
     return data;
 })
-  
-export interface CartItem {
-    cart: MealsItem[]
-  }
+
 const initialState: CartItem = {
     cart: []
 }
-export const cartItem = createSlice({
+export const cartSlice = createSlice({
     name: 'cart',
     initialState,
     reducers: {
     },
     extraReducers: (builder) => {
-        builder.addCase(fetchCartItems.pending, (state, action) => {
+        builder.addCase(fetchCartItems.pending, (state) => {
             state.cart = []
         }),
         builder.addCase(fetchCartItems.fulfilled, (state, action) => {   
             state.cart = state.cart.concat(action.payload)
         })
-        builder.addCase(fetchCartItems.rejected, (state, action) => {
+        builder.addCase(fetchCartItems.rejected, (state) => {
             state.cart = []
         })
       }
-    
 })
 
-export default cartItem.reducer
+export default cartSlice.reducer

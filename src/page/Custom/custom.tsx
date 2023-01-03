@@ -1,19 +1,13 @@
 import * as React from 'react';
-import { Argument} from 'webpack';
 import { useState } from 'react';
-import './custom.css'
+import './style.css'
 import ingredients from '../../ingredients';
-import { ICustomProps } from '../App';
+import { ICustomProps } from '../../types';
 
 
 //Продолжаю работу над разделом
 
-
-export default interface It1Props {
-    castomCart: typeof ingredients,
-    setCastomCart: React.SetStateAction<any>
-}
-export default function Main () {   
+const Custom: React.FC = () => {   
     const [customCart, setCustomCart] = useState([{
         meat:ingredients[0].meat[0].name,
         chees:ingredients[0].chees[0].name,
@@ -181,3 +175,5 @@ export default function Main () {
     )
 
 }
+
+export default Custom

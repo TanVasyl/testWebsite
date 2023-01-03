@@ -1,7 +1,7 @@
 import { configureStore } from '@reduxjs/toolkit'
-import cartItem  from './slice/cartList'
-import mealsList from './slice/mealsList'
-import authUser from './slice/authUser'
+import cartItem  from './slice/cartSlice'
+import mealsList from './slice/mealsSlice'
+import authUser from './slice/authUserSlice'
 import { useDispatch } from 'react-redux'
 
 export const store = configureStore({

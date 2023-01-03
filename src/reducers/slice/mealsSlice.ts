@@ -1,30 +1,14 @@
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
-import type { PayloadAction } from '@reduxjs/toolkit';
+import {MealsState, loading,MealsItem } from '../../types'
 import axios from 'axios'
 
-export enum loading { 
-    'pending' , 
-    'succeeded',  
-    'failed'
-}
-export type MealsItem = {
-    id: number;
-    title: string;
-    url: string;
-    price: number;
-    count: number;
-}
-export interface MealsState  {
-    loading: loading,
-    meals: MealsItem[]
-  }
-  const initialState: MealsState = {
+const initialState: MealsState = {
     loading: loading.pending,
     meals: []
 }
 export const fetchMealsItems = createAsyncThunk<MealsItem>('meals/fetchMealsItems', async () => {
     const { data } = await axios.get('http://localhost:5000/')     
-    sessionStorage.setItem('tokenSession', data.tokenSession)
+    sessionStorage.setItem('tokenSession', data.token)
     return data.meals
 })
 export const mealsList = createSlice({
@@ -32,7 +16,7 @@ export const mealsList = createSlice({
     initialState,
     reducers:{},
     extraReducers: (builder) => {
-        builder.addCase(fetchMealsItems.pending, (state, action) => {
+        builder.addCase(fetchMealsItems.pending, (state) => {
             state.loading = loading.pending,
             state.meals = []
         }),
@@ -40,7 +24,7 @@ export const mealsList = createSlice({
             state.loading = loading.succeeded,
             state.meals = state.meals.concat(action.payload)
         }),
-        builder.addCase(fetchMealsItems.rejected, (state, action) => {
+        builder.addCase(fetchMealsItems.rejected, (state) => {
             state.loading = loading.failed,
             state.meals = []
         })

@@ -1,13 +1,7 @@
 import { createSlice } from '@reduxjs/toolkit';
 import type { PayloadAction } from '@reduxjs/toolkit';
+import {userLogin} from '../../types'
 
-export interface userLogin {
-    user: {
-        id: number,
-        name:string
-    },
-    isAuth: boolean
-}
 const initialState: userLogin  = {
     user: {
         id: null,
@@ -20,13 +14,15 @@ export const authUser = createSlice({
     name: 'user',
     initialState,
     reducers: {
-        responseUser (state, action: PayloadAction<any>) {
-            state.user = action.payload,
+        responseUser (state, action: PayloadAction<userLogin>) {
             state.isAuth = true
+            state.user.name = action.payload.user.name,
+            state.user.id = action.payload.user.id
             localStorage.setItem('user', JSON.stringify(state))
         },
-        localStateUser ( state, action: PayloadAction<any>) {
-            state = action.payload   
+        localStateUser ( state, action: PayloadAction<userLogin>) {
+            state.user = action.payload.user
+
         }   
     }
 })
