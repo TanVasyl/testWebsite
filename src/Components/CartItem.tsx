@@ -1,35 +1,36 @@
 import * as React from "react";
 import axios from 'axios';
-import { useTypeSelector } from '../hooks/useSelector';
 import {fetchCartItems } from '../reducers/slice/cartSlice';
 import { useAppDispatch } from '../reducers/store';
 import { MealsItem } from '../types';
 
+type CartProps = {
+    cart:MealsItem[]
+}
 
-
-const CartItem: React.FC = () => {
+const CartItem: React.FC<CartProps> = React.memo(({cart}) => {
+    console.log('Render CartItem');
     const dispatch = useAppDispatch()
-    const cart = useTypeSelector(state => state.cartItem.cart)
-
-    const delItem = async(items:MealsItem) => {
+ 
+    const delItem = React.useCallback(async(items:MealsItem) => {
         await axios.post('http://localhost:5000/cart/items', {
             meals: items
         })
         dispatch(fetchCartItems())
-    }
-    const increaseCount = async (items:MealsItem) => {
+    },[])
+    const increaseCount = React.useCallback(async (items:MealsItem) => {
         await axios.put('http://localhost:5000/cart/items/plus', {
             id: items.id
         })   
         dispatch(fetchCartItems())
-    }
-    const decreaseCount = async (items:MealsItem) => {
+    },[])
+    const decreaseCount = React.useCallback(async (items:MealsItem) => {
         await axios.put('http://localhost:5000/cart/items/minus', {
             id: items.id
         })   
         dispatch(fetchCartItems())
-    } 
-    const totalPrice = cart.reduce((prev, curr)=> prev+(curr.count*curr.price), 0)
+    },[])
+    
     if(!cart.length){
         return <h1>{`Пустая корзина`}</h1>
     }
@@ -61,6 +62,6 @@ const CartItem: React.FC = () => {
             })}
            </div>
     )
-}
+})
 
 export default CartItem

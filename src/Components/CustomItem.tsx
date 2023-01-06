@@ -3,6 +3,8 @@ import { useState } from "react";
 
 
 const CustomItem: React.FC = () => {
+    console.log('Render CustomItem');
+    
     const [customCart,setCastomCart] = useState(JSON.parse( localStorage.getItem('custom')) || [])
     return (
         <div className="test">

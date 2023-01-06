@@ -8,6 +8,8 @@ import { ICustomProps } from '../../types';
 //Продолжаю работу над разделом
 
 const Custom: React.FC = () => {   
+    console.log('Render Custom');
+    
     const [customCart, setCustomCart] = useState([{
         meat:ingredients[0].meat[0].name,
         chees:ingredients[0].chees[0].name,

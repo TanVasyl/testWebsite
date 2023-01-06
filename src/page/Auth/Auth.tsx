@@ -4,6 +4,8 @@ import Login from '../../Components/login'
 import RegistrationUser from '../../Components/registr'
 
 const Auth: React.FC = () => {
+    console.log('Render Auth');
+    
     return (
     <div>
         <Login/>

@@ -2,7 +2,7 @@ import * as React from 'react';
 import './app.css'
 import { Routes, Route} from 'react-router-dom'
 
-import Header from './Header/header';
+import Header from '../Components/Header/header';
 import Auth from '../page/Auth/Auth'
 import Custom from '../page/Custom/custom'
 import Home from '../page/Home/home';

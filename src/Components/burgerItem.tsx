@@ -1,13 +1,21 @@
 import * as React from "react"; 
 import axios from 'axios';
 import { useTypeSelector } from '../hooks/useSelector';
+import { useAppDispatch } from '../reducers/store';
+import { fetchMealsItems } from '../reducers/slice/mealsSlice';
 import { MealsItem } from '..//types';
 
 
 const BurgerItem: React.FC = () => {
-const mealsName = useTypeSelector((state) => state.mealsList.meals)
+    console.log('Render BurgerItem');
+    const mealsName = useTypeSelector((state) => state.mealsList.meals)
+   
+    const dispatch = useAppDispatch()
+    React.useEffect(() => {
+        dispatch(fetchMealsItems())
+    },[])
 
-const addButton = async (prod:MealsItem) => {
+const addButton = React.useCallback( async (prod:MealsItem) => {
     const {id,count,price,title,url} = prod
     await axios.post('http://localhost:5000/post',{
             token: sessionStorage.getItem('tokenSession'),
@@ -19,7 +27,7 @@ const addButton = async (prod:MealsItem) => {
                 url:url
             }
     })
-}
+}, [])
     return(
     <div className="meals_list">
         <div className="MealsHeader">

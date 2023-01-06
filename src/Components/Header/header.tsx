@@ -2,9 +2,11 @@ import * as React from 'react';
 import './style.css'
 import { Link, Outlet } from 'react-router-dom'
 import { useTypeSelector } from '../../hooks/useSelector';
-import {HeaderTitle} from '../../types/'
+import {HeaderTitle} from '../../types'
 
 const Header: React.FC = () => {
+    
+    console.log('Render Header');
     
     const items:HeaderTitle[] = [
         {value: 'Конструктор блюд', href:'/custom', id: 0 },

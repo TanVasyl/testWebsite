@@ -5,6 +5,8 @@ import { responseUser } from "../reducers/slice/authUserSlice";
 import { FormInputs} from '../types'
 
 const Login:React.FC = () => {
+    console.log('Render login');
+    
     const dispatch = useDispatch()
     const loginUser = (name:string, password:string) => {
         fetch('http://localhost:5000/auth/' ,  {

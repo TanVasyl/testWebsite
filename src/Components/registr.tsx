@@ -5,6 +5,8 @@ import Login from './login';
 
 
 const createUser = (name:string, password:string) => { 
+    console.log('Render registr');
+    
     fetch('http://localhost:5000/registr/' ,  {
         method:'POST',
         headers:{
