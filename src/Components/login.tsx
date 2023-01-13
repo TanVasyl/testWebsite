@@ -4,7 +4,7 @@ import { useDispatch, } from 'react-redux';
 import { responseUser } from "../reducers/slice/authUserSlice";
 import { FormInputs} from '../types'
 
-const Login:React.FC = () => {
+const Login:React.FC = React.memo(() => {
     console.log('Render login');
     
     const dispatch = useDispatch()
@@ -15,7 +15,7 @@ const Login:React.FC = () => {
                 'content-type':'application/json'
             },
             body: JSON.stringify({
-                user: name,
+                login: name,
                 password: password
             })
         })
@@ -23,7 +23,6 @@ const Login:React.FC = () => {
             return response.json();
         })
         .then((data) => {
-            console.log(data); 
             dispatch(responseUser(data))
         })
         .catch((error) => {
@@ -38,8 +37,8 @@ const Login:React.FC = () => {
     formState: { errors },
   } = useForm<FormInputs>();
 
-  const onSubmit = (data:any) => {
-    loginUser(data.yourName, data.password)
+  const onSubmit = (data:FormInputs) => {
+    loginUser(data.login, data.password)
     reset()
   }
   return (
@@ -49,7 +48,7 @@ const Login:React.FC = () => {
             <div className='login'>
             <label>Логин : </label>
                 <input className='input_name'
-                {...register('yourName', {
+                {...register('login', {
                     required: "Поле не может быть пустым",
                     pattern: /^[а-яА-ЯёЁa-zA-Z]+$/,
                     minLength: {
@@ -59,7 +58,7 @@ const Login:React.FC = () => {
                 })}
                 />
                 <div className='error'>
-                    {errors?.yourName && <p style={{color:'blue'}}>{errors?.yourName?.message || 'Допустимы только буквы'}</p>}
+                    {errors?.login && <p style={{color:'blue'}}>{errors?.login?.message || 'Допустимы только буквы'}</p>}
                 </div>
             </div>
            <div className="res" style = {{
@@ -87,5 +86,5 @@ const Login:React.FC = () => {
 
     </>
   );
-}
+})
 export default Login;

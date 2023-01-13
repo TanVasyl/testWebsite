@@ -8,24 +8,27 @@ type CartProps = {
     cart:MealsItem[]
 }
 
-const CartItem: React.FC<CartProps> = React.memo(({cart}) => {
+const CartItem: React.FC<CartProps> = ({cart}) => {
     console.log('Render CartItem');
     const dispatch = useAppDispatch()
  
     const delItem = React.useCallback(async(items:MealsItem) => {
         await axios.post('http://localhost:5000/cart/items', {
+            token: localStorage.getItem('tokenSession'),
             meals: items
         })
         dispatch(fetchCartItems())
     },[])
     const increaseCount = React.useCallback(async (items:MealsItem) => {
         await axios.put('http://localhost:5000/cart/items/plus', {
+            token: localStorage.getItem('tokenSession'),
             id: items.id
         })   
         dispatch(fetchCartItems())
     },[])
     const decreaseCount = React.useCallback(async (items:MealsItem) => {
         await axios.put('http://localhost:5000/cart/items/minus', {
+            token: localStorage.getItem('tokenSession'),
             id: items.id
         })   
         dispatch(fetchCartItems())
@@ -62,6 +65,5 @@ const CartItem: React.FC<CartProps> = React.memo(({cart}) => {
             })}
            </div>
     )
-})
-
+}
 export default CartItem

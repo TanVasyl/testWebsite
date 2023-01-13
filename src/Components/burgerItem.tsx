@@ -5,27 +5,20 @@ import { useAppDispatch } from '../reducers/store';
 import { fetchMealsItems } from '../reducers/slice/mealsSlice';
 import { MealsItem } from '..//types';
 
-
-const BurgerItem: React.FC = () => {
+const BurgerItem: React.FC = React.memo(() => {
     console.log('Render BurgerItem');
-    const mealsName = useTypeSelector((state) => state.mealsList.meals)
-   
     const dispatch = useAppDispatch()
+    const idUser  = useTypeSelector(state => state.authUser)
     React.useEffect(() => {
-        dispatch(fetchMealsItems())
+        dispatch(fetchMealsItems(idUser))
     },[])
+    const mealsName = useTypeSelector((state) => state.mealsList.meals)
 
-const addButton = React.useCallback( async (prod:MealsItem) => {
-    const {id,count,price,title,url} = prod
+    const addButton = React.useCallback( async (prod:MealsItem) => {
+    
     await axios.post('http://localhost:5000/post',{
-            token: sessionStorage.getItem('tokenSession'),
-            meals: {
-                id:id,
-                count:count,
-                price:price,
-                title:title,
-                url:url
-            }
+            token: localStorage.getItem('tokenSession'),
+            meals: prod
     })
 }, [])
     return(
@@ -47,5 +40,5 @@ const addButton = React.useCallback( async (prod:MealsItem) => {
         </div>
     </div>
     )
-}
+})
 export default BurgerItem

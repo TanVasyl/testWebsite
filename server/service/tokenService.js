@@ -7,8 +7,5 @@ class TokenService {
         accessToken
        }
     }
-    saveToken(accessToken) {
-       const token = accessToken
-    }
 }
 module.exports = new TokenService();

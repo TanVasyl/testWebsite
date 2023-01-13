@@ -13,7 +13,7 @@ const createUser = (name:string, password:string) => {
         'content-type':'application/json'
         },
         body: JSON.stringify({
-        user: name,
+        login: name,
         password: password
         })
     })
@@ -40,9 +40,7 @@ const RegistrationUser:React.FC = () =>{
         mode: 'onChange'
     })
     const onSubmit:SubmitHandler<FormInputs> = (data) => {
-         console.log("Вы зарегистрировались,", "Ваш логин :" ,data.yourName,"Ваш пароль :", data.password);
-         createUser(data.yourName, data.password)
-         alert("Вы зарегистрировались");
+         createUser(data.login, data.password)
          reset()
     }
    
@@ -53,7 +51,7 @@ const RegistrationUser:React.FC = () =>{
             <div className='login'>
             <label>Логин : </label>
                 <input className='input_name'
-                {...register('yourName', {
+                {...register('login', {
                 required: "Поле не может быть пустым",
                 pattern: /^[а-яА-ЯёЁa-zA-Z]+$/,
                 minLength: {
@@ -63,7 +61,7 @@ const RegistrationUser:React.FC = () =>{
                 })}
                 />
                 <div className='error'>
-                {errors?.yourName && <p style={{color:'blue'}}>{errors?.yourName?.message || 'Допустимы только буквы'}</p>}
+                {errors?.login && <p style={{color:'blue'}}>{errors?.login?.message || 'Допустимы только буквы'}</p>}
                 </div>
             </div>
             <div className="password">

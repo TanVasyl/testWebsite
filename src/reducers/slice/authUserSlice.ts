@@ -2,12 +2,17 @@ import { createSlice } from '@reduxjs/toolkit';
 import type { PayloadAction } from '@reduxjs/toolkit';
 import {userLogin} from '../../types'
 
+
+
+
+const localStateUser:userLogin = JSON.parse(localStorage.getItem('user'))
+
 const initialState: userLogin  = {
     user: {
-        id: null,
-        name:''
+        id: null || localStateUser?.user.id,
+        login:'' || localStateUser?.user.login
     },
-    isAuth: false
+    isAuth: false || localStateUser?.isAuth
 } 
 
 export const authUser = createSlice({
@@ -16,17 +21,13 @@ export const authUser = createSlice({
     reducers: {
         responseUser (state, action: PayloadAction<userLogin>) {
             state.isAuth = true
-            state.user.name = action.payload.user.name,
+            state.user.login = action.payload.user.login,
             state.user.id = action.payload.user.id
             localStorage.setItem('user', JSON.stringify(state))
-        },
-        localStateUser ( state, action: PayloadAction<userLogin>) {
-            state.user = action.payload.user
-
-        }   
+        }
     }
 })
 
-export  const { responseUser, localStateUser } = authUser.actions
+export  const { responseUser } = authUser.actions
 
 export default authUser.reducer

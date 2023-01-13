@@ -23,8 +23,7 @@
   "scripts": {
     "test": "test",
     "wp": "webpack --mode production",
-    "serv": "webpack-dev-server --mode=development --open",
-    "node": "node ./server/app.js"
+    "dev": "webpack-dev-server --mode=development --open"
   },
   "author": "basyl",
   "license": "ISC",

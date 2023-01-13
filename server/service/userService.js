@@ -1,19 +1,18 @@
 const userBD = require('./userBD/user.json')
 const fs = require('fs');
 const bcrypt = require('bcryptjs');
-const e = require('express');
 const salt = bcrypt.genSaltSync(7);
 const userDBPath = __dirname + '/userBD/user.json'
 
 class UserService {
-    async registration(password, user) {
-        if(userBD.find((elem) => elem.name === user)) {
+    async registration(password, login) {
+        if(userBD.find((elem) => elem.name === login)) {
             throw new Error(`Пользователь с таким именем существует`)
         } else {  
             const hashpassword = await bcrypt.hashSync(password, salt);
             const createUser = {
                 id: +(new Date()),
-                name: user,
+                login: login,
                 password: hashpassword
                 }
             userBD.push(createUser)
@@ -22,13 +21,13 @@ class UserService {
             })
         }
     }
-    async auth(password,user) {
+    async auth(password,login) {
         const userRes = {
             id:null,
-            name:''
+            login:''
         }
         const person =  userBD.find((elem) => {
-            if(elem.name === user) {
+            if(elem.login === login) {
                 return elem
             }
         })
@@ -37,7 +36,7 @@ class UserService {
             return {
                 ...userRes,
                 id: person.id,
-                name: person.name
+                login: person.login
             }
         } 
     }

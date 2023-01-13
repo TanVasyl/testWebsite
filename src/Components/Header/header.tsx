@@ -4,10 +4,8 @@ import { Link, Outlet } from 'react-router-dom'
 import { useTypeSelector } from '../../hooks/useSelector';
 import {HeaderTitle} from '../../types'
 
-const Header: React.FC = () => {
-    
+const Header: React.FC = React.memo(() => {
     console.log('Render Header');
-    
     const items:HeaderTitle[] = [
         {value: 'Конструктор блюд', href:'/custom', id: 0 },
         {value: 'Регистрация', href:'/registr', id: 1},
@@ -15,7 +13,7 @@ const Header: React.FC = () => {
         {value: 'Корзина', href:'/cart', id: 3},
     ]
     const {user} = useTypeSelector((state) => state.authUser)
-    
+
     return (
         <div className= 'menu'>
             <div className="menu_content" >
@@ -30,12 +28,11 @@ const Header: React.FC = () => {
                 <span style={{
                     'background': 'white',
                     'color':'red'
-                }}>{user?.name}</span>
+                }}>{user?.login}</span>
                 </div>}
             </div>
             <Outlet />
         </div>
     )
-}
-
+})
 export default Header;

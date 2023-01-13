@@ -8,7 +8,7 @@ import {fetchCartItems } from '../../reducers/slice/cartSlice';
 import { useAppDispatch } from '../../reducers/store';
 import { MealsItem } from '../../types';
 
-const Cart:React.FC = React.memo(() =>  {
+const Cart:React.FC = () =>  {
     console.log('Render Cart');
     const dispatch = useAppDispatch()
     const cart = useTypeSelector(state => state.cartItem.cart)
@@ -45,5 +45,4 @@ const Cart:React.FC = React.memo(() =>  {
     </div>
     )
 }
-)
 export default Cart

@@ -33,13 +33,13 @@ export interface ICustomProps{
     setCustom?: React.SetStateAction<any>
 }
 export type FormInputs = {
-    yourName: string;
+    login: string;
     password: string;
 }
 export interface userLogin {
     user: {
         id: number,
-        name:string
+        login:string
     },
     isAuth: boolean
 }
