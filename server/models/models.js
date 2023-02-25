@@ -12,6 +12,7 @@ const Basket = sequelize.define('basket', {
 })
 const Basket_food = sequelize.define('basket_food', {
     id: {type: DataTypes.INTEGER, primaryKey: true, autoIncrement:true},
+    count: {type: DataTypes.INTEGER, defaultValue: 1},
 })
 const Food = sequelize.define('food', {
     id: {type: DataTypes.INTEGER, primaryKey: true, autoIncrement:true},
@@ -46,8 +47,8 @@ Rating.belongsTo(User)
 Basket.hasMany(Basket_food)
 Basket_food.belongsTo(Basket)
 
-Basket_food.hasOne(Food)
-Food.belongsTo(Basket_food)
+Food.hasMany(Basket_food)
+Basket_food.belongsTo(Food)
 
 Food.hasMany(Rating)
 Rating.belongsTo(Food)

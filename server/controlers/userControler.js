@@ -1,20 +1,53 @@
 const ApiError = require('../error/APIError')
-const UserService = require('../service/userService')
+const { User, Basket } = require('../models/models')
+const bcrypt = require('bcryptjs')
+const salt = bcrypt.genSaltSync(7);
+const jwt = require('jsonwebtoken')
 
+const generateJwt = (id, login, role) => {
+   return jwt.sign(
+        {id,login,role}, 
+            process.env.ACCESS_SECRET,
+        {
+            expiresIn: '24h'
+        }
+    )
+    
+}
 class UserControler {
 
     async registration (req, res, next) {
-    
+        const {login, password, role} = req.body
+        if(!password || !login) {
+            return next(ApiError.BadRequest('Некорректный логин или пароль'))
+        }
+        const candidate = await User.findOne({where: {login}})
+        if(candidate) {
+            return next(ApiError.Forbidden('Пользователь с таким логином уже существует'))
+        }
+        const hashPassword = await bcrypt.hash(password, salt)
+        const user = await User.create({login, password:hashPassword, role})
+        const basket = await Basket.create({userId:user.id})
+        const token = generateJwt(user.id, user.login, user.role)
+        return res.json({token})
     }
-    async login (req, res, next) {
- 
+    async login (req, res, next) {  
+        const {login, password} = req.body
+        const user = await User.findOne({where: {login}})
+        if(!user) {
+            return next(ApiError.NotFound('Пользователь с таким именем не найдет'))
+        }
+        let checkPassword = bcrypt.compareSync(password, user.password)
+        if(!checkPassword) {
+            return next(ApiError.Forbidden('Неверный пароль'))
+        }
+        const token = generateJwt(user.id, login, user.role)
+        return res.json({token})
     }
     async check (req, res, next) {
-        const {id} = req.query
-        if(!id) {
-            return next(ApiError.BadRequest('Не задан Id'))
-        }
-        res.json(id)
+        const {id, login, role} = req.user
+        const token = generateJwt(id, login, role)
+        return res.json({token})
     }
 }
 

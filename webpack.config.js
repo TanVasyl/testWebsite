@@ -2,6 +2,8 @@ const HTMLWebPlug = require('html-webpack-plugin');
 const {CleanWebPlug, CleanWebpackPlugin} = require('clean-webpack-plugin')
 const path = require('path');
 const webpack = require('webpack');
+const dotenv = require('dotenv').config()
+const Dotenv = require('dotenv-webpack')
 
 const config = {
    
@@ -50,7 +52,12 @@ const config = {
         new CleanWebpackPlugin(),
         new HTMLWebPlug({
             template: './src/index.html'
+        }),
+        new Dotenv({
+            path: "./.env",
+            safe:true
         })
+        
     ]
 };
 

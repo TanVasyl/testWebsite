@@ -6,12 +6,14 @@ const CartControler = require('../controlers/CartControler')
 const foodRouter = require('./foodRouter')
 const typeRouter = require('./typeRouter')
 const userRouter = require('./userRouter')
+const cartRouter = require('./cartRouter')
 const router = new Router();
 
 
 router.use('/food', foodRouter)
 router.use('/user', userRouter)
 router.use('/type',typeRouter)
+router.use('/cart',cartRouter)
 
 
 

@@ -7,17 +7,25 @@ export enum loading {
 }
 export type MealsItem = {
     id: number;
-    title: string;
-    url: string;
+    name: string;
+    Image: string;
     price: number;
     count: number;
+}
+export type TypeItem = {
+        id:number,
+        name:string
 }
 export interface MealsState  {
     loading: loading,
     meals: MealsItem[]
 }
+export interface TypeState {
+    type: TypeItem[],
+    selectedType: number
+}
 export interface CartItem {
-    cart: MealsItem[]
+    cart: MealsItem[],
 }
 export interface IRegistrProps{
     registr: boolean,
@@ -41,7 +49,7 @@ export interface userLogin {
         id: number,
         login:string
     },
-    isAuth: boolean
+    _isAuth: boolean
 }
 export type HeaderTitle = {
     value: string, 

@@ -2,6 +2,7 @@ import { configureStore } from '@reduxjs/toolkit'
 import cartItem  from './slice/cartSlice'
 import mealsList from './slice/mealsSlice'
 import authUser from './slice/authUserSlice'
+import typeSlice from './slice/typeSlice'
 import { useDispatch } from 'react-redux'
 
 export const store = configureStore({
@@ -9,6 +10,7 @@ export const store = configureStore({
     mealsList,
     cartItem,
     authUser,
+    typeSlice,
   },
 })
 export type RootState = ReturnType<typeof store.getState>

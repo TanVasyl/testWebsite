@@ -22,30 +22,23 @@
     display: flex;
     justify-content: center;
     transition: all 0.4s;
-    color: azure;
 }
-.menu_header {
+.menu_content a {
+    text-decoration: none;
+    margin-right: 20px;
+    font-size: 26px;
+    color: blanchedalmond;
+    cursor: pointer;
+}
+.type__bar {
     display: flex;
     font-size: 26px;
     color: blanchedalmond;
 }
-ul {
-    
-    list-style: none;
-    display: flex;
-}
-ul li {
+.type__bar a{
     text-decoration: none;
     margin-right: 20px;
-    font-size: 18px;
-}
-ul li a {
+    font-size: 26px;
     color: blanchedalmond;
-    text-decoration: none;
 }
-ul li a :last-child{
-    position: absolute;
-    right: 0;
-}
-
 

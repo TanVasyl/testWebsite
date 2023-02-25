@@ -3,6 +3,8 @@ import axios from 'axios';
 import {fetchCartItems } from '../reducers/slice/cartSlice';
 import { useAppDispatch } from '../reducers/store';
 import { MealsItem } from '../types';
+import { useTypeSelector } from "../hooks/useSelector";
+import * as e from "express";
 
 type CartProps = {
     cart:MealsItem[]
@@ -11,24 +13,24 @@ type CartProps = {
 const CartItem: React.FC<CartProps> = ({cart}) => {
     console.log('Render CartItem');
     const dispatch = useAppDispatch()
- 
+    const food = useTypeSelector(state => state.mealsList.meals)
     const delItem = React.useCallback(async(items:MealsItem) => {
-        await axios.post('http://localhost:5000/cart/items', {
-            token: localStorage.getItem('tokenSession'),
-            meals: items
+        await axios.delete('http://localhost:5000/api/cart', {
+           headers:{
+            id:items.id
+           }
         })
         dispatch(fetchCartItems())
     },[])
     const increaseCount = React.useCallback(async (items:MealsItem) => {
-        await axios.put('http://localhost:5000/cart/items/plus', {
-            token: localStorage.getItem('tokenSession'),
-            id: items.id
-        })   
+        await axios.post('http://localhost:5000/api/cart/add',{
+            token: localStorage.getItem('token'),
+            meals: items
+    })
         dispatch(fetchCartItems())
     },[])
     const decreaseCount = React.useCallback(async (items:MealsItem) => {
-        await axios.put('http://localhost:5000/cart/items/minus', {
-            token: localStorage.getItem('tokenSession'),
+        await axios.put('http://localhost:5000/api/cart/dec', {
             id: items.id
         })   
         dispatch(fetchCartItems())
@@ -40,12 +42,14 @@ const CartItem: React.FC<CartProps> = ({cart}) => {
     return(
             <div className="cart_item">
             {cart.map((item) => {
-                const {id,count,price,title,url} = item
+                console.log(item);
+                
+                const {id,count,price,name,Image} = item
                 return (
                 <div key={id} className="cart_content" >
-                    <img className='cart_img' src={url} />
+                    <img className='cart_img' src={process.env.REACT_APP_PORT + Image} />
                     <div className="cart_title">
-                        {title}
+                        {name}
                     </div>
                     <div className="cart_count">
                         Количество: 

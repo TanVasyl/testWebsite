@@ -3,14 +3,15 @@ import axios from 'axios';
 import { MealsItem,CartItem } from '../../types';
 
 export const fetchCartItems = createAsyncThunk<MealsItem[]>('cart/fetchCartItems', async () => {
-    const { data } = await axios.post('http://localhost:5000/cart/', {
-        token: localStorage.getItem('tokenSession')
-    })     
-    return data?.items;
+    const { data } = await axios.post('http://localhost:5000/api/cart/', {
+        token: localStorage.getItem('token')
+    })      
+    console.log(data, 'cart slice');
+    return data;
 })
 
 const initialState: CartItem = {
-    cart: []
+    cart: [],
 }
 export const cartSlice = createSlice({
     name: 'cart',

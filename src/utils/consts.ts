@@ -1,0 +1,7 @@
+export const ADMIN_ROUTE = '/api/admin'
+export const LOGIN_ROUTE = '/api/login'
+export const REGISTATION_ROUTE = '/api/registration'
+export const HOME_ROUTE = '/'
+export const CART_ROUTE = '/api/cart'
+export const FOOD_ROUTER = '/api/food'
+export const CUSTOM_ROUTER = '/api/custom'

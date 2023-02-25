@@ -15,7 +15,7 @@ const Cart:React.FC = () =>  {
     React.useEffect(() => {
         dispatch(fetchCartItems())
     }, [])
-    const totalPrice = cart.reduce((prev, curr)=> prev+(curr.count*curr.price), 0)
+    // const totalPrice = cart.reduce((prev, curr)=> prev+(curr.count*curr.price), 0)
     // const [sell, setSell] = useState(false)
     // const [customCart,setCastomCart] = useState(JSON.parse( localStorage.getItem('custom')) || [])
  
@@ -36,7 +36,7 @@ const Cart:React.FC = () =>  {
         </div>
         <div className="cart_footer">
             <span>Общая стоимость товаров:
-                {totalPrice}
+                {/* {totalPrice} */}
           </span>
             {/* <div className="btn__cart_add">
                 <button className='btn_add' onClick={cartSell} >Оформить заказ</button>

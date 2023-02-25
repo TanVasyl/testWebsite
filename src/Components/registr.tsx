@@ -1,34 +1,20 @@
 import * as React from 'react';
 import {SubmitHandler,  useForm} from 'react-hook-form'
+import { Link } from 'react-router-dom';
 import { FormInputs} from '../types'
+import { registration } from "../http/userApi";
 import Login from './login';
 
 
-const createUser = (name:string, password:string) => { 
-    console.log('Render registr');
-    
-    fetch('http://localhost:5000/registr/' ,  {
-        method:'POST',
-        headers:{
-        'content-type':'application/json'
-        },
-        body: JSON.stringify({
-        login: name,
-        password: password
-        })
-    })
-    .then((response) => {
-        return response.json();
-    })
-    .then((data) => {
-        console.log(data);
-    })
-    .catch((error) => {
-        console.log(error)
-    })
-}
-
 const RegistrationUser:React.FC = () =>{
+    
+const createUser = async (login:string, password:string ) => {
+   try {
+    const response = await registration(login, password)
+   } catch (error) {
+    alert(error.response.data.message)
+   }
+}
     const {
         register,
         formState: {
@@ -79,7 +65,10 @@ const RegistrationUser:React.FC = () =>{
                 {errors?.password && <p style={{color:'blue'}}>{errors?.password?.message || 'Error' }</p>}
                 </div>
             </div>
-            <button className='submit_button' type='submit'>Зарегистрироваться</button>
+            <div>
+                <button className='submit_button' type='submit'>Зарегистрироваться</button>
+                <span>Есть аккаунт? <Link to='/api/login'> Авторизируйся</Link></span>
+            </div>
         </form> 
     </div>
     </div>

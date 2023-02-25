@@ -4,7 +4,6 @@ const {Food, Food_info} = require('../models/models')
 const ApiError = require('../error/APIError')
 
 class FoodControler {
-    
     async create(req,res, next) {
       try {
         let {name, price, info, typeId} = req.body

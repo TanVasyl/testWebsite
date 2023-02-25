@@ -2,32 +2,33 @@ import { createSlice } from '@reduxjs/toolkit';
 import type { PayloadAction } from '@reduxjs/toolkit';
 import {userLogin} from '../../types'
 
-
-
-
-const localStateUser:userLogin = JSON.parse(localStorage.getItem('user'))
-
 const initialState: userLogin  = {
     user: {
-        id: null || localStateUser?.user.id,
-        login:'' || localStateUser?.user.login
+        id: null ,
+        login:'' 
     },
-    isAuth: false || localStateUser?.isAuth
+    _isAuth: false 
 } 
 
 export const authUser = createSlice({
     name: 'user',
     initialState,
     reducers: {
-        responseUser (state, action: PayloadAction<userLogin>) {
-            state.isAuth = true
-            state.user.login = action.payload.user.login,
-            state.user.id = action.payload.user.id
-            localStorage.setItem('user', JSON.stringify(state))
+        authentication (state, action) {
+            state._isAuth = true
+            state.user.login = action.payload.login,
+            state.user.id = action.payload.id
+        },
+        logOutUser(state, action){
+            state._isAuth = action.payload
+            state.user = {
+                id:null,
+                login:''
+            }
         }
     }
 })
 
-export  const { responseUser } = authUser.actions
+export  const { authentication,logOutUser } = authUser.actions
 
 export default authUser.reducer

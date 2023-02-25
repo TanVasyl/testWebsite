@@ -1,35 +1,28 @@
 import * as  React from "react";
 import { useForm } from "react-hook-form";
 import { useDispatch, } from 'react-redux';
-import { responseUser } from "../reducers/slice/authUserSlice";
+import { useTypeSelector } from "../hooks/useSelector";
+import { loginUser } from "../http/userApi";
+import { authentication } from "../reducers/slice/authUserSlice";
 import { FormInputs} from '../types'
+import { useNavigate } from "react-router-dom";
+import { FOOD_ROUTER } from "../utils/consts";
 
 const Login:React.FC = React.memo(() => {
-    console.log('Render login');
-    
-    const dispatch = useDispatch()
-    const loginUser = (name:string, password:string) => {
-        fetch('http://localhost:5000/auth/' ,  {
-            method:'POST',
-            headers:{
-                'content-type':'application/json'
-            },
-            body: JSON.stringify({
-                login: name,
-                password: password
-            })
-        })
-        .then((response) => {
-            return response.json();
-        })
-        .then((data) => {
-            dispatch(responseUser(data))
-        })
-        .catch((error) => {
-            console.log(error)
-        }) 
+  console.log('Render login');
+  const navigate = useNavigate()
+  const {user,_isAuth} = useTypeSelector(state => state.authUser)
+  const dispatch = useDispatch()
+  const login = async (login:string, password:string ) => {
+    try {
+      const response = await loginUser(login, password)
+      dispatch(authentication(response))
+      navigate(FOOD_ROUTER)
+      console.log(response);
+    } catch (error) {
+      alert(error.response.data.message)
     }
-
+  }
   const {
     register,
     handleSubmit,
@@ -38,7 +31,7 @@ const Login:React.FC = React.memo(() => {
   } = useForm<FormInputs>();
 
   const onSubmit = (data:FormInputs) => {
-    loginUser(data.login, data.password)
+    login(data.login, data.password)
     reset()
   }
   return (
@@ -88,3 +81,27 @@ const Login:React.FC = React.memo(() => {
   );
 })
 export default Login;
+
+
+
+// const loginUser = (name:string, password:string) => {
+//     fetch('http://localhost:5000/auth/' ,  {
+//         method:'POST',
+//         headers:{
+//             'content-type':'application/json'
+//         },
+//         body: JSON.stringify({
+//             login: name,
+//             password: password
+//         })
+//     })
+//     .then((response) => {
+//         return response.json();
+//     })
+//     .then((data) => {
+//         dispatch(responseUser(data))
+//     })
+//     .catch((error) => {
+//         console.log(error)
+//     }) 
+// }

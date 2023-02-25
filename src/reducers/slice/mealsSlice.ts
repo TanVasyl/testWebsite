@@ -1,6 +1,6 @@
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
 import {MealsState, loading,MealsItem, userLogin } from '../../types'
-import axios from 'axios'
+import { $host } from '../../http';
 
 
 const initialState: MealsState = {
@@ -8,17 +8,11 @@ const initialState: MealsState = {
     meals: []
 }
 
-export const fetchMealsItems = createAsyncThunk<MealsItem[],userLogin>('meals/fetchMealsItems', async (idUser) => {
-        const { data } = await axios.get('http://localhost:5000/', {
-            headers:{
-                id:idUser.user.id ,
-                token: localStorage.getItem('tokenSession')
-            }
-        })   
+export const fetchMealsItems = createAsyncThunk<MealsItem[]>('meals/fetchMealsItems', async () => {
+        const { data } = await $host.get('http://localhost:5000/api/food')   
         console.log(data);
         
-        localStorage.setItem('tokenSession', data.data.accessToken)
-        return data.meals
+        return data.rows
 })
 export const mealsList = createSlice({
     name: 'meals',
@@ -30,7 +24,7 @@ export const mealsList = createSlice({
             state.meals = state.meals
         }),
         builder.addCase(fetchMealsItems.fulfilled, (state, action) => {   
-            state.loading = loading.succeeded,
+            state.loading = loading.succeeded,            
             state.meals = action.payload
         }),
         builder.addCase(fetchMealsItems.rejected, (state) => {
